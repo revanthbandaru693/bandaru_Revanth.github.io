@@ -825,6 +825,137 @@ a:focus-visible, button:focus-visible{
 .status{ display:inline-flex; align-items:center; gap:.4rem; font-size:.7rem; color:var(--ink-soft); }
 .status i{ width:6px; height:6px; border-radius:50%; background:#7fae6b; display:inline-block; box-shadow:0 0 0 3px rgba(127,174,107,.15); animation:statusPulse 2s ease-out infinite; }
 @keyframes statusPulse{ 100%{ box-shadow:0 0 0 10px rgba(127,174,107,0); } }
+/* ============ MOBILE / RESPONSIVE ADD-ON ============
+   Paste this at the very END of your existing <style> block
+   (just above </style>) so it overrides earlier rules. */
+
+html{ -webkit-text-size-adjust:100%; }
+img, svg{ max-width:100%; }
+
+/* ---------- Tablets & below ---------- */
+@media (max-width:900px){
+  .hero{ min-height:100svh; height:auto; }
+  .hero-inner{
+    grid-template-columns:1fr;
+    gap:2.2rem;
+    padding-top:2.5rem;
+    padding-bottom:5rem;
+    text-align:left;
+  }
+  .hero-card{ width:min(280px, 70vw); justify-self:start; }
+  .hero-glow{ display:none; }        /* cursor glow is useless on touch */
+  .scroll-cue{ display:none; }       /* avoids overlapping the content */
+  .section{ padding:4.5rem 0; }
+}
+
+/* ---------- Header / nav drawer ---------- */
+@media (max-width:860px){
+  .header-inner{ gap:.5rem; }
+  .brand{ font-size:1.05rem; }
+  .nav__list{
+    height:calc(100dvh - var(--header-h));
+    width:82%;
+    overflow-y:auto;
+  }
+  .site-header.is-compact .nav__list{
+    top:60px;
+    height:calc(100dvh - 60px);
+  }
+  .nav__link{ font-size:1rem; padding:1.1rem 0; }
+  .nav__toggle{ width:36px; height:36px; justify-self:end; }
+  .nav__toggle span,
+  .nav__toggle span::before,
+  .nav__toggle span::after{ left:4px; width:28px; }
+  .nav__toggle span{ top:17px; }
+}
+
+/* ---------- Phones ---------- */
+@media (max-width:720px){
+  :root{ --header-h:64px; }
+  .wrap{ padding:0 20px; }
+  .header-inner{ padding:0 16px; }
+
+  /* Resume button becomes icon-only so the brand never gets squeezed */
+  .resume-btn{
+    font-size:0;                 /* hides the text node */
+    gap:0;
+    padding:.6rem;
+    min-width:40px; min-height:40px;
+    justify-content:center;
+  }
+  .resume-btn svg{ width:16px; height:16px; }
+
+  .hero-tag{ font-size:.68rem; padding:.35rem .75rem; line-height:1.4; }
+  .hero-title{ font-size:clamp(2.8rem, 15vw, 4.2rem); }
+  .hero-role{ font-size:1.05rem; max-width:none; }
+  .hero-text{ max-width:none; font-size:.95rem; }
+  .hero-actions .btn{ flex:1 1 140px; justify-content:center; padding:.95rem 1rem; }
+  .hero-card{ width:min(260px, 74vw); }
+
+  .ticker{ transform:rotate(-1.2deg) scale(1.06); }
+
+  .section{ padding:3.6rem 0; }
+  .section-head{ margin-bottom:2rem; }
+  .section-head p{ max-width:none; }
+
+  /* About */
+  .about-grid{ gap:2.4rem; }
+  .about-copy p{ font-size:.98rem; }
+  .about-copy p:first-child::first-letter{ font-size:3rem; }
+  .record{ padding-left:1.3rem; }
+  .record__entry{ margin-left:-.6rem; padding:.4rem .6rem .6rem; }
+
+  /* Skills */
+  .loadout-grid{ grid-template-columns:repeat(auto-fill,minmax(104px,1fr)); gap:.7rem; }
+  .slot{ padding:1rem .75rem; }
+  #skills::before{ font-size:5rem; top:1rem; }
+
+  /* Projects: tabs scroll sideways instead of wrapping awkwardly */
+  .tabs{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    margin:0 -20px 2rem;
+    padding:0 20px .4rem;
+  }
+  .tabs::-webkit-scrollbar{ display:none; }
+  .tab{ flex:0 0 auto; padding:.7rem 1.1rem; white-space:nowrap; }
+
+  .project-card{ padding:1rem; gap:1.2rem; }
+  .project-visual{ min-height:0; aspect-ratio:16/10; }
+  .project-body h3{ font-size:1.4rem; }
+  .project-body p{ max-width:none; }
+  .project-link{ padding:.4rem 0; }
+
+  /* Contact */
+  .contact-cta{ max-width:none; font-size:clamp(2.2rem, 11vw, 3.4rem); }
+  .contact-list{ flex-direction:column; gap:1.5rem; }
+  .contact-item a{ word-break:break-word; }
+  .contact::before{ width:380px; height:380px; left:-160px; bottom:-200px; }
+
+  .site-footer .wrap{ flex-direction:column; align-items:flex-start; }
+}
+
+/* ---------- Very small phones ---------- */
+@media (max-width:380px){
+  .brand{ font-size:.95rem; }
+  .hero-title{ font-size:2.6rem; }
+  .loadout-grid{ grid-template-columns:repeat(2,1fr); }
+}
+
+/* ---------- Touch devices: skip hover-only motion, keep taps responsive ---------- */
+@media (hover:none){
+  a, button{ -webkit-tap-highlight-color:transparent; }
+  .slot:hover, .project-card:hover, .record__entry:hover, .btn--solid:hover, .btn--ghost:hover{
+    transform:none;
+  }
+  /* lighter scroll-reveal so it doesn't stutter on phones */
+  @keyframes reveal{
+    from{ opacity:0; transform:translateY(24px); }
+    to{ opacity:1; transform:none; }
+  }
+}
 </style>
 </head>
 <body>
